@@ -38,6 +38,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("有效的邮箱地址")
         }
         
+        
+        let contact = ("http://www.yy.com", "chenhuafeng@yy.com")
+        
+        let mailRegex: NSRegularExpression
+        let siteRegex: NSRegularExpression
+        
+        mailRegex = ~/"^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$"
+        siteRegex = ~/"^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$"
+        
+        switch contact {
+        case (siteRegex, mailRegex): print("同时拥有有效的网站和邮箱")
+        case (_, mailRegex): print("只拥有有效的邮箱")
+        case (siteRegex, _): print("只拥有有效的网站")
+        default: print("嘛都没有")
+        }
+        
         return true
     }
 

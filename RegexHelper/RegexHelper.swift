@@ -36,3 +36,15 @@ func =~(lhs: String, rhs: String) -> Bool {
         return false
     }
 }
+
+func ~=(pattern: NSRegularExpression, input: String) -> Bool {
+    return pattern.numberOfMatches(in: input, options: [], range: NSRange(location: 0, length: input.characters.count)) > 0
+}
+
+
+prefix operator ~/
+
+prefix func ~/(pattern: String) -> NSRegularExpression {
+    return try! NSRegularExpression(pattern: pattern, options: [])
+}
+
