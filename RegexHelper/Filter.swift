@@ -59,7 +59,16 @@ func compose(filter filter1: @escaping Filter, with filter2 : @escaping Filter) 
     return { image in filter2(filter1(image)) }
 }
 
+//infix operator >>>
+//func >>>(filter1: @escaping Filter, filter2: @escaping Filter) -> Filter {
+//    return { image in filter2(filter1(image)) }
+//}
+
 infix operator >>>
-func >>>(filter1: @escaping Filter, filter2: @escaping Filter) -> Filter {
-    return { image in filter2(filter1(image)) }
+func >>><A, B, C>(f: @escaping (A) -> B, g: @escaping (B) -> C) -> (A) -> C {
+    return { x in g(f(x)) }
+}
+
+func curry<A, B, C>(_ f: @escaping (A, B) -> C) -> (A) -> (B) -> C {
+    return { x in { y in f(x, y) } }
 }
